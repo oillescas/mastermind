@@ -12,7 +12,6 @@ public class Tablero {
     public JugadaSecreta jugadaSecreta;
     public ArrayList<JugadaPropuesta> jugadasPropuestas;
     private Scanner scanner;
-    private Resultado resultado;
 
     public Tablero(){
         inicializarTablero();
@@ -26,7 +25,7 @@ public class Tablero {
     public void play(){
         boolean continuar = true;
         while(continuar) {
-            start();
+            empezarJuego();
             System.out.println("Do you want to continue? (s/n):");
             String entrada = scanner.next();
             continuar = "s".equals(entrada) || "S".equals(entrada);
@@ -35,7 +34,7 @@ public class Tablero {
         this.scanner.close();
     }
 
-    public void start(){
+    public void empezarJuego(){
 
         System.out.println("----- MASTERMIND -----");
 
@@ -51,7 +50,7 @@ public class Tablero {
 
         while (MAX_JUGADAS > this.jugadasPropuestas.size()  && !haGanado) {
             JugadaPropuesta propuesta = leerJugadaPropuesta("Propose a combination:");
-            resultado = jugadaSecreta.checkJugada(propuesta);
+            Resultado resultado = jugadaSecreta.checkJugada(propuesta);
             propuesta.setResultado(resultado);
             this.jugadasPropuestas.add(propuesta);
             haGanado = resultado.haGanado();

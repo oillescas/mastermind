@@ -23,7 +23,7 @@ public class JugadaSecreta  extends Jugada {
 
 
     public String toString() {
-        return "****"; //TODO generato from leng of Jugada
+        return "****";
     }
 
     public Resultado checkJugada(Jugada prueba) {
