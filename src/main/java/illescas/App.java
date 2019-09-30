@@ -15,6 +15,6 @@ public final class App {
      */
     public static void main(String [] args) {
         Tablero principal = new Tablero();
-        principal.start();
+        principal.play();
     }
 }

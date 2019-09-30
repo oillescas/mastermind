@@ -7,16 +7,16 @@ public class Resultado {
 
     int negros;
     int blancos;
+    boolean ganador;
 
-
-    public Resultado(int negros, int blancos) {
+    public Resultado(int negros, int blancos, boolean ganador) {
         this.negros = negros;
         this.blancos = blancos;
+        this.ganador = ganador;
     }
 
-    //TODO config
     public boolean haGanado() {
-        return this.negros == 4;
+        return this.ganador;
     }
 
     public String toString() {

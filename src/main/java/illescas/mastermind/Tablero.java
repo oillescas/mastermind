@@ -9,14 +9,30 @@ import java.util.Scanner;
 public class Tablero {
 
     private static final int MAX_JUGADAS = 10;
-    public Jugada jugadaSecreta;
+    public JugadaSecreta jugadaSecreta;
     public ArrayList<JugadaPropuesta> jugadasPropuestas;
     private Scanner scanner;
     private Resultado resultado;
 
     public Tablero(){
+        inicializarTablero();
+    }
+
+    private void inicializarTablero() {
         this.jugadasPropuestas = new ArrayList<JugadaPropuesta>();
         this.scanner = new Scanner(System.in);
+    }
+
+    public void play(){
+        boolean continuar = true;
+        while(continuar) {
+            start();
+            System.out.println("Do you want to continue? (s/n):");
+            String entrada = scanner.next();
+            continuar = "s".equals(entrada) || "S".equals(entrada);
+            inicializarTablero();
+        }
+        this.scanner.close();
     }
 
     public void start(){
@@ -29,25 +45,32 @@ public class Tablero {
             //Nunca debe pasar por aquí
         }
 
-
-        int num_movimientos = 0;
         boolean haGanado = false;
-        //TODO config
-        while (MAX_JUGADAS > num_movimientos && !haGanado) {
-            System.out.println(this.jugadasPropuestas.size() + " attempt(s):");
-            for (JugadaPropuesta fila : this.jugadasPropuestas) {
-                System.out.println(fila);
-            }
-            System.out.println(this.jugadaSecreta);
+
+        pintarTablero();
+
+        while (MAX_JUGADAS > this.jugadasPropuestas.size()  && !haGanado) {
             JugadaPropuesta propuesta = leerJugadaPropuesta("Propose a combination:");
             resultado = jugadaSecreta.checkJugada(propuesta);
             propuesta.setResultado(resultado);
             this.jugadasPropuestas.add(propuesta);
             haGanado = resultado.haGanado();
-            num_movimientos++;
+            pintarTablero();
         }
-        //Fin del juego
-        this.scanner.close();
+
+        if(haGanado){
+            System.out.println("You've won!!! ;-)");
+        } else {
+            System.out.println("You've lost!!! :-(");
+        }
+    }
+
+    private void pintarTablero() {
+        System.out.println(this.jugadasPropuestas.size() + " attempt(s):");
+        for (JugadaPropuesta fila : this.jugadasPropuestas) {
+            System.out.println(fila);
+        }
+        System.out.println(this.jugadaSecreta);
     }
 
     private JugadaPropuesta leerJugadaPropuesta(String mensaje) {

@@ -24,4 +24,8 @@ public enum Color
     public String toString(){
         return clave;
     }
+
+    public String getClave(){
+        return this.clave;
+    }
 }
